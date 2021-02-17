@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRouter from "./router/auth.js";
-import homeRouter from "./router/home.js";
+import userRouter from "./router/user.js";
 
 dotenv.config();
 const app = express();
@@ -15,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 // DB Connection
+mongoose.set('useFindAndModify', false);
 mongoose.
   connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -28,8 +29,8 @@ mongoose.
     console.log("Error : ", err);
   })
 
-app.use("/api/user", authRouter);
-app.use("/api/home", homeRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 
 app.listen(PORT, () => {
   console.log("Server running on Port :", PORT);

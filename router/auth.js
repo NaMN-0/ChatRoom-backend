@@ -23,9 +23,9 @@ router.post("/register", async (req, res) => {
   }
 
   // Check if user already exists
-  const emailExist = await User.findOne({email : req.body.email});
-  if(emailExist){
-    return res.status(200).send({msg : "Email already Exists"});
+  const usernameExist = await User.findOne({username : req.body.username});
+  if(usernameExist){
+    return res.status(200).send({msg : "Username already Exists"});
   }
 
   // Hash Password
@@ -34,9 +34,10 @@ router.post("/register", async (req, res) => {
   // Add new User
   const newUser = new User({
     name: req.body.name,
-    email: req.body.email,
+    username: req.body.username,
     password: hashedPassword,
-    dateJoined: req.body.dateJoined
+    dateJoined: req.body.dateJoined,
+    newUser: true
   });
   try{
     const savedUser = await newUser.save();
@@ -59,7 +60,7 @@ router.post("/login", async (req, res) => {
   }
 
   // Check if user exists
-  const user = await User.findOne({email : req.body.email});
+  const user = await User.findOne({username : req.body.username});
   if(!user){
     return res.status(200).send({msg : "Email does not exists"});
   }
@@ -71,7 +72,7 @@ router.post("/login", async (req, res) => {
   }
 
   // Create and assign token
-  const token = jwt.sign({_id : user._id, name : user.name, email : user.email}, process.env.JWT_SECRET, {expiresIn: "1hr"});
+  const token = jwt.sign({_id : user._id, name : user.name, username : user.username}, process.env.JWT_SECRET, {expiresIn: "1hr"});
   res.status(200).send({id : user._id, token : token});
 });
 
