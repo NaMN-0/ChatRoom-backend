@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 import authRouter from "./router/auth.js";
 import userRouter from "./router/user.js";
 import fileRouter from "./router/files.js";
+import chatRouter from "./router/chat.js";
 
 dotenv.config();
 const app = express();
@@ -36,6 +37,7 @@ mongoose.
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/files", fileRouter);
+app.use("/api/chat", chatRouter);
 
 app.listen(PORT, () => {
   console.log("Server running on Port :", PORT);
