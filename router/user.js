@@ -66,4 +66,22 @@ router.put("/addPeople", async (req, res) => {
     })
 });
 
+router.put("/editProfile", async (req, res) => {
+  const id = req.body.id;
+  const change = req.body.change;
+  User
+  .findByIdAndUpdate(id,{$set:change},{new:true})
+  .then(docs => {
+    if(docs){
+      res.send(docs);
+    }
+    else{
+      res.send({msg : "Some Error occured!"});
+    }
+  })
+  .catch(err => {
+    res.send({msg : "Some Error occured!"});
+  });    
+});
+
 export default router;

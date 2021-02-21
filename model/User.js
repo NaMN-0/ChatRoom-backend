@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
   },
   imgUrl: {
     type: String,
-    default: "https://lh3.googleusercontent.com/proxy/cHKMe_NmiPQ2sKKBHKtoNXQ75IIPZNIx54Ps8ynIZq_Sg6O-3EuMiZc22bkXZRBaZIZL_JoIzbkzpmw9Kdt_W8FYdknMP1E4IXEzsQUaw_Z2yNrgz--15DTq9sh-"
+    default: "https://devtalk.blender.org/uploads/default/original/2X/c/cbd0b1a6345a44b58dda0f6a355eb39ce4e8a56a.png"
   },
   bio: {
     type: String,
