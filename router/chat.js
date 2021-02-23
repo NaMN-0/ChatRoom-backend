@@ -1,12 +1,15 @@
+import { createRequire } from 'module';
 import express from "express";
 import Chat from "../model/chat.js";
 import dotenv from "dotenv";
+import { io } from "../index.js";
 
 dotenv.config();
 
 const router = express.Router();
 
 router.get("/getMsgs", (req,res) => {
+
   const chatID = req.query.chatID;
   Chat
     .findOne(
@@ -26,11 +29,12 @@ router.get("/getMsgs", (req,res) => {
 });
 
 router.post("/sendMsg", (req,res) => {
+
   const chatID = req.body.chatID;
   const msgText = req.body.msgText;
-  const author = req.body.author;
+  const user1ID = req.body.user1ID;
   const newMsg = {
-    author : author,
+    user1ID : user1ID,
     msgText : msgText,
     date : Date.now()
   }

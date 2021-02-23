@@ -20,6 +20,22 @@ router.get("/detail", async (req, res) => {
   res.status(200).send(user);
 });
 
+router.post("/peopleDetail", async (req, res) => {
+  const list = req.body;
+  console.log(list);
+  const detailsList = await 
+    User
+      .find( { _id : { $in : list } } )
+      .catch(err => {
+        res.send({msg : "Some Error occured!"});
+      });
+  if(!detailsList){
+    return res.status(200).send({msg : "User does not exist"});
+  }
+  console.log(detailsList);
+  res.status(200).send(detailsList);
+});
+
 router.get("/search", async (req, res) => {
   const query = req.query.query;
   const user = await 
@@ -42,7 +58,7 @@ router.put("/addPeople", async (req, res) => {
     .then(user => {
       User.findById(id2)
         .then(user2 => {
-          updatedPeople = [...user.people,user2];
+          updatedPeople = [...user.people,user2._id];
           User
           .findByIdAndUpdate(id1,{$set:{people:updatedPeople}},{new:true})
           .then(docs => {
