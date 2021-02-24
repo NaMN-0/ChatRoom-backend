@@ -1,5 +1,5 @@
 import express from "express";
-import User from "../model/user.js";
+import User from "../model/User.js";
 import dotenv from "dotenv";
 
 import multer from "multer";

@@ -1,6 +1,6 @@
 import { createRequire } from 'module';
 import express from "express";
-import Chat from "../model/chat.js";
+import Chat from "../model/Chat.js";
 import dotenv from "dotenv";
 import { io } from "../index.js";
 
