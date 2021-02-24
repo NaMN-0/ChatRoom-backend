@@ -16,6 +16,7 @@ const require = createRequire(import.meta.url);
 const PORT = process.env.PORT || 8000;
 const app = express();
 const server = require('http').createServer(app);
+
 export const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
