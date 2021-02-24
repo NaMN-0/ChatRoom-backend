@@ -13,7 +13,7 @@ import chatRouter from "./router/chat.js";
 dotenv.config();
 
 const require = createRequire(import.meta.url);
-const PORT = process.env.port | 8000;
+const PORT = process.env.port || 8000;
 const app = express();
 const server = require('http').createServer(app);
 export const io = require('socket.io')(server);
