@@ -9,7 +9,6 @@ import authRouter from "./router/auth.js";
 import userRouter from "./router/user.js";
 import fileRouter from "./router/files.js";
 import chatRouter from "./router/chat.js";
-import { disconnect } from 'process';
 
 dotenv.config();
 
