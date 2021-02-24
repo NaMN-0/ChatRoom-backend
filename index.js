@@ -17,7 +17,12 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 const server = require('http').createServer(app);
 
-export const io = require('socket.io')(server);
+// Middlewares
+app.use(cors());
+app.use(express.json());
+app.use(express.static('public'));
+
+export const io = require('socket.io')(server, {transports: ['websocket']});
 
 io.on('connection', (socket) => {
   console.log("User Connected")
@@ -34,12 +39,6 @@ io.on('connection', (socket) => {
     console.log("User left");
   })
 })
-
-// Middlewares
-app.use(cors());
-app.use(express.json());
-
-app.use(express.static('public'));
 
 // DB Connection
 mongoose.set('useFindAndModify', false);
