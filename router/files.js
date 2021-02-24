@@ -31,7 +31,7 @@ const fileFilter = (req,file,cb) => {
 }
 
 const upload = multer({storage: storage, fileFilter: fileFilter});
-const rootUrl = "http://localhost:8000";
+const rootUrl = "http://chatroom-backend-0.herokuapp.com";
 
 router.post("/uploadDP",upload.single('file'), (req, res) => {
   const id = req.body.id;
