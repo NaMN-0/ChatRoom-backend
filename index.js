@@ -22,7 +22,14 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-export const io = require('socket.io')(server);
+export const io = require('socket.io')(server,{
+  cors: {
+    origin: '*',
+    methods: 'GET,PUT,POST,DELETE,OPTIONS'.split(','),
+    credentials: true
+  }
+});
+const expressStatusMonitor = require('express-status-monitor');
 app.use(expressStatusMonitor({ websocket: io, port: app.get('port') })); 
 
 io.on('connection', (socket) => {
