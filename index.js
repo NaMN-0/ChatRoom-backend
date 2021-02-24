@@ -22,7 +22,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-export const io = require('socket.io')(server, {transports: ['websocket']});
+export const io = require('socket.io')(server);
+app.use(expressStatusMonitor({ websocket: io, port: app.get('port') })); 
 
 io.on('connection', (socket) => {
   console.log("User Connected")
