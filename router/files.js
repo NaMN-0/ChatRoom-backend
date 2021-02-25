@@ -10,43 +10,24 @@ dotenv.config();
 
 const router = express.Router();
 
-const folderPath = "./public/profileImgs";
-
-const storage = multer.diskStorage({
-  destination: (req,file,cb) => {
-    cb(null,folderPath);
-  },
-  filename: (req,file,cb) => {
-    cb(null, uuidv4()+path.extname(file.originalname));
-  }
-});
-
-const fileFilter = (req,file,cb) => {
-  if(file.mimetype=="image/jpeg" || file.mimetype=="image/png"){
-    cb(null,true);
-  }
-  else{
-    cb(null,false);
-  }
-}
-
-const upload = multer({storage: storage, fileFilter: fileFilter});
-const rootUrl = "http://chatroom-backend-0.herokuapp.com";
-
-router.post("/uploadDP",upload.single('file'), (req, res) => {
+router.post("/uploadDP", (req, res) => {
   const id = req.body.id;
-  const fileName = `${rootUrl}/profileImgs/${req.file.filename}`;
+  const imgUrl = req.body.imgUrl;
+  console.log(id, imgUrl);
   User
-    .findByIdAndUpdate(id,{$set:{imgUrl:fileName}},{new:true})
+    .findByIdAndUpdate(id,{$set:{imgUrl:imgUrl}},{new:true})
     .then(docs => {
       if(docs){
+        console.log(docs);
         res.send(docs);
       }
       else{
+        console.log('err1');
         res.send({msg : "Some Error occured!"});
       }
     })
     .catch(err => {
+      console.log('err2');
       res.send({msg : "Some Error occured!"});
     });    
 });
